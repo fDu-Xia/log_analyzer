@@ -17,6 +17,17 @@ def extract_tx_info(swap_log):
     except TypeError:
         return None
 
+def extract_tx_error(swap_log):
+    try:
+        result_match = re.search(r'result \[(.*?)] coast', swap_log)
+        if result_match:
+            result_json = json.loads(result_match.group(1))
+            if  result_json['code'] != 0:
+                return result_json['code']
+    except TypeError:
+        return None
+
+
 def extract_send_bundle_log(f,tx_hash):
     while True:
         bundle_line = f.readline()
