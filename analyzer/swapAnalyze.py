@@ -1,4 +1,4 @@
-from extractor.extract import extract_tx_error
+from extractor.interface import extract_error
 from utils.time import get_time_stamp
 
 
@@ -31,7 +31,7 @@ def swap_error_analyze(swap_logs,hook_logs):
     for i in range(n):
         if hook_logs[i] is not None:
             on_chain_count += 1
-        error_type = extract_tx_error(swap_logs[i])
+        error_type = extract_error(swap_logs[i])
         if error_type is not None:
             swap_error_count += 1
             if error_type in error_map:
